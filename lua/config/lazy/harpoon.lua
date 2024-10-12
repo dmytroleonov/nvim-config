@@ -5,7 +5,7 @@ return {
     config = function()
         local harpoon = require("harpoon")
 
-        harpoon:setup({ 
+        harpoon:setup({
             global_settings = {
                 save_on_toggle = true,
             }
@@ -24,3 +24,4 @@ return {
         vim.keymap.set("n", "<leader><C-;>", function() harpoon:list():replace_at(4) end)
     end
 }
+
