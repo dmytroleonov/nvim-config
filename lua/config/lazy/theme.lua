@@ -11,6 +11,11 @@ return {
                     italic = false,
                     transparency = true,
                 },
+                highlight_groups = {
+                    Pmenu = { bg = "surface" },
+                    NormalFloat = { bg = "surface" },
+                    TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
+                }
             })
             vim.cmd("colorscheme rose-pine")
         end
