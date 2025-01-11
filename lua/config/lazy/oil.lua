@@ -6,15 +6,17 @@ return {
             view_options = {
                 show_hidden = true,
             },
+            is_hidden_file = function(name, bufnr)
+                return false
+            end,
+            watch_for_changes = true,
             keymaps = {
                 ["g?"] = { "actions.show_help", mode = "n" },
                 ["<CR>"] = "actions.select",
                 ["<C-s>"] = { "actions.select", opts = { vertical = true } },
-                ["<C-h>"] = { "actions.select", opts = { horizontal = true } },
                 ["<C-t>"] = { "actions.select", opts = { tab = true } },
                 ["<C-v>"] = { "actions.preview", opts = { split = 'botright' } },
                 ["<C-c>"] = { "actions.close", mode = "n" },
-                ["<C-l>"] = "actions.refresh",
                 ["-"] = { "actions.parent", mode = "n" },
                 ["_"] = { "actions.open_cwd", mode = "n" },
                 ["`"] = { "actions.cd", mode = "n" },
