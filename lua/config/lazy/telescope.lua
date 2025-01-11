@@ -4,7 +4,7 @@ return {
     tag = "0.1.5",
 
     dependencies = {
-        "nvim-lua/plenary.nvim"
+        "nvim-lua/plenary.nvim",
     },
 
     config = function()
@@ -24,5 +24,5 @@ return {
         vim.keymap.set("n", "<leader>ps", function()
             builtin.grep_string({ search = vim.fn.input("Grep > ") })
         end)
-    end
+    end,
 }

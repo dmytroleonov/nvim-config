@@ -15,7 +15,7 @@ return {
                 ["<CR>"] = "actions.select",
                 ["<C-s>"] = { "actions.select", opts = { vertical = true } },
                 ["<C-t>"] = { "actions.select", opts = { tab = true } },
-                ["<C-v>"] = { "actions.preview", opts = { split = 'botright' } },
+                ["<C-v>"] = { "actions.preview", opts = { split = "botright" } },
                 ["<C-c>"] = { "actions.close", mode = "n" },
                 ["-"] = { "actions.parent", mode = "n" },
                 ["_"] = { "actions.open_cwd", mode = "n" },
@@ -28,7 +28,7 @@ return {
             },
             -- Set to false to disable all of the above keymaps
             use_default_keymaps = false,
-        });
+        })
 
         vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
     end,

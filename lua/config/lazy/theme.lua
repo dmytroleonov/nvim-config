@@ -15,9 +15,9 @@ return {
                     Pmenu = { bg = "surface" },
                     NormalFloat = { bg = "surface" },
                     TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
-                }
+                },
             })
             vim.cmd("colorscheme rose-pine")
-        end
-    }
+        end,
+    },
 }
