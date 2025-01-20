@@ -2,12 +2,12 @@ return {
     "nvimtools/none-ls.nvim",
     dependencies = {
         "nvimtools/none-ls-extras.nvim",
-        "jayp0521/mason-null-ls.nvim", -- ensure dependencies are installed
+        "jayp0521/mason-null-ls.nvim",
     },
     config = function()
         local null_ls = require("null-ls")
-        local formatting = null_ls.builtins.formatting -- to setup formatters
-        local diagnostics = null_ls.builtins.diagnostics -- to setup linters
+        local formatting = null_ls.builtins.formatting
+        local diagnostics = null_ls.builtins.diagnostics
 
         -- Formatters & linters for mason to install
         require("mason-null-ls").setup({
@@ -16,7 +16,7 @@ return {
                 "stylua",
                 "eslint-lsp",
                 "shfmt",
-                -- 'ruff', -- Python linter and formatter
+                'ruff',
             },
             automatic_installation = true,
         })
@@ -26,8 +26,8 @@ return {
             formatting.stylua.with({ extra_args = { "--indent-type", "Spaces" } }),
             formatting.shfmt.with({ args = { "-i", "4" } }),
             formatting.terraform_fmt,
-            -- require("none-ls.formatting.ruff").with({ extra_args = { "--extend-select", "I" } }),
-            -- require("none-ls.formatting.ruff_format"),
+            require("none-ls.formatting.ruff").with({ extra_args = { "--extend-select", "I" } }),
+            require("none-ls.formatting.ruff_format"),
         }
 
         vim.keymap.set("n", "<leader>f", function()
