@@ -22,6 +22,7 @@ return {
         })
 
         local sources = {
+            formatting.prisma_format,
             formatting.prettierd,
             formatting.stylua.with({ extra_args = { "--indent-type", "Spaces" } }),
             formatting.shfmt.with({ args = { "-i", "4" } }),
@@ -33,6 +34,7 @@ return {
         vim.keymap.set("n", "<leader>f", function()
             vim.lsp.buf.format({
                 async = false,
+                -- TODO: prisma formtting not working
                 filter = function(c)
                     return c.name == "null-ls"
                 end,

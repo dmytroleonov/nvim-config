@@ -1,6 +1,6 @@
 return {
     "stevearc/oil.nvim",
-    dependencies = { { "echasnovski/mini.icons", opts = {} } },
+    dependencies = { { "nvim-tree/nvim-web-devicons", opts = {} } },
     config = function()
         local detail = false
 
@@ -11,6 +11,7 @@ return {
                     return false
                 end,
             },
+            skip_confirm_for_simple_edits = true,
             watch_for_changes = true,
             keymaps = {
                 ["g?"] = { "actions.show_help", mode = "n" },
@@ -42,6 +43,6 @@ return {
             use_default_keymaps = false,
         })
 
-        vim.keymap.set("n", "-", "<CMD>Oil<CR>", { desc = "Open parent directory" })
+        vim.keymap.set("n", "-", "<cmd>Oil<CR>", { desc = "Open parent directory" })
     end,
 }

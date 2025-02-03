@@ -106,7 +106,7 @@ return {
 
         local servers = {
             ts_ls = {},
-            -- ruff = {},
+            ruff = {},
             pylsp = {
                 settings = {
                     pylsp = {
@@ -158,6 +158,8 @@ return {
             },
         }
 
+        vim.keymap.set("n", "gl", '<cmd>lua vim.diagnostic.open_float(0, { scope = "line" })<CR>')
+        vim.diagnostic.config({ severity_sort = true })
         -- Ensure the servers and tools above are installed
         --  To check the current status of installed tools and/or manually install
         --  other tools, you can run
