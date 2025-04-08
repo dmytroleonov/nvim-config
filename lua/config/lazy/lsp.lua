@@ -159,7 +159,16 @@ return {
         }
 
         vim.keymap.set("n", "gl", '<cmd>lua vim.diagnostic.open_float(0, { scope = "line" })<CR>')
-        vim.diagnostic.config({ severity_sort = true })
+        vim.diagnostic.config({
+            severity_sort = true,
+            virtual_text = {
+                severity = { min = vim.diagnostic.severity.WARN },
+            },
+            underline = {
+                severity = { min = vim.diagnostic.severity.WARN },
+            },
+            severity = { min = vim.diagnostic.severity.WARN },
+        })
         -- Ensure the servers and tools above are installed
         --  To check the current status of installed tools and/or manually install
         --  other tools, you can run

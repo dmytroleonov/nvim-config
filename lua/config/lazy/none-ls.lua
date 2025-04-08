@@ -16,7 +16,7 @@ return {
                 "stylua",
                 "eslint-lsp",
                 "shfmt",
-                'ruff',
+                "ruff",
             },
             automatic_installation = true,
         })

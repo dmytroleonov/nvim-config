@@ -12,6 +12,6 @@ return {
                 hijack_netrw_behavior = "disabled",
             },
         })
-        vim.keymap.set("n", "<leader>nt", "<cmd>Neotree<CR>")
+        vim.keymap.set("n", "<leader>nt", "<cmd>Neotree toggle<CR>")
     end,
 }
