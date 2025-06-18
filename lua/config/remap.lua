@@ -75,27 +75,16 @@ end
 
 vim.keymap.set("n", "<leader>cp", copy_path, { desc = "Copy file path" })
 
-local function get_jira_ticket()
-    local handle = io.popen("git rev-parse --abbrev-ref HEAD")
-    if not handle then
-        return ""
-    end
-    local branch_name = handle:read("*l")
-    handle:close()
+vim.g.listchars_visible = false
+vim.g.listchars_value = "trail:~,tab:>-,nbsp:␣"
 
-    if not branch_name then
-        return ""
-    end
-
-    local ticket = branch_name:match("(%u+%-%d+)")
-    return ticket or ""
-end
-
-vim.keymap.set("n", "<leader>j", function()
-    local ticket = get_jira_ticket()
-    if ticket ~= "" then
-        vim.api.nvim_put({ ticket }, "c", true, true)
+vim.keymap.set('n', '<leader>hl', function()
+    if vim.g.listchars_visible then
+        vim.opt.list = false
+        vim.g.listchars_visible = false
     else
-        print("No Jira ticket found in branch name")
+        vim.opt.list = true
+        vim.opt.listchars = vim.g.listchars_value
+        vim.g.listchars_visible = true
     end
-end, { desc = "Insert Jira ticket from Git branch" })
+end, { desc = "Toggle listchars" })
