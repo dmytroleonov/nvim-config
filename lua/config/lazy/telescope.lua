@@ -9,7 +9,20 @@ return {
     },
 
     config = function()
-        require("telescope").setup({})
+        require("telescope").setup({
+            defaults = {
+                vimgrep_arguments = {
+                    "rg",
+                    "--color=never",
+                    "--no-heading",
+                    "--with-filename",
+                    "--line-number",
+                    "--column",
+                    "--smart-case",
+                    "--multiline",
+                },
+            },
+        })
 
         local builtin = require("telescope.builtin")
         vim.keymap.set("n", "<C-p>", function()
