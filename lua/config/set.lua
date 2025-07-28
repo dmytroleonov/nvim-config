@@ -38,3 +38,8 @@ vim.opt.colorcolumn = "80"
 
 vim.opt.timeout = false
 vim.opt.ttimeoutlen = 0
+
+vim.g.listchars_value = "trail:~,tab:>-,nbsp:␣"
+vim.opt.list = true
+vim.opt.listchars = vim.g.listchars_value
+vim.g.listchars_visible = true
