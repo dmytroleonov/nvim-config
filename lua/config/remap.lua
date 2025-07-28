@@ -63,12 +63,7 @@ local function copy_path()
             if i then
                 local result = results[i]
                 vim.fn.setreg("+", result)
-                vim.notify("\nCopied: " .. result)
-            else
-                vim.notify("\nInvalid selection")
             end
-        else
-            vim.notify("\nSelection cancelled")
         end
     end)
 end
@@ -78,7 +73,7 @@ vim.keymap.set("n", "<leader>cp", copy_path, { desc = "Copy file path" })
 vim.g.listchars_visible = false
 vim.g.listchars_value = "trail:~,tab:>-,nbsp:␣"
 
-vim.keymap.set('n', '<leader>hl', function()
+vim.keymap.set("n", "<leader>hl", function()
     if vim.g.listchars_visible then
         vim.opt.list = false
         vim.g.listchars_visible = false
