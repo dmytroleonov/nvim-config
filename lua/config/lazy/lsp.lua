@@ -66,7 +66,7 @@ return {
                 --
                 -- When you move your cursor, the highlights will be cleared (the second autocommand).
                 local client = vim.lsp.get_client_by_id(event.data.client_id)
-                if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
+                if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_documentHighlight) then
                     local highlight_augroup = vim.api.nvim_create_augroup("kickstart-lsp-highlight", { clear = false })
                     vim.api.nvim_create_autocmd({ "CursorHold", "CursorHoldI" }, {
                         buffer = event.buf,
@@ -89,11 +89,7 @@ return {
                     })
                 end
 
-                -- The following code creates a keymap to toggle inlay hints in your
-                -- code, if the language server you are using supports them
-                --
-                -- This may be unwanted, since they displace some of your code
-                if client and client.supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
+                if client and client:supports_method(vim.lsp.protocol.Methods.textDocument_inlayHint) then
                     map("<leader>th", function()
                         vim.lsp.inlay_hint.enable(not vim.lsp.inlay_hint.is_enabled({ bufnr = event.buf }))
                     end, "[T]oggle Inlay [H]ints")
@@ -106,6 +102,7 @@ return {
 
         local servers = {
             ts_ls = {},
+            eslint = {},
             ruff = {},
             pylsp = {
                 settings = {
@@ -133,9 +130,6 @@ return {
             yamlls = {},
 
             lua_ls = {
-                -- cmd = {...},
-                -- filetypes = { ...},
-                -- capabilities = {},
                 settings = {
                     Lua = {
                         completion = {
@@ -149,7 +143,7 @@ return {
                                 unpack(vim.api.nvim_get_runtime_file("", true)),
                             },
                         },
-                        diagnostics = { disable = { "missing-fields" } },
+                        diagnostics = { disable = { "missing-fields" }, globals = { "vim" } },
                         format = {
                             enable = false,
                         },
@@ -158,7 +152,10 @@ return {
             },
         }
 
-        vim.keymap.set("n", "gl", '<cmd>lua vim.diagnostic.open_float(0, { scope = "line" })<CR>')
+        vim.keymap.set("n", "gl", function()
+            vim.diagnostic.open_float({ scope = "line" })
+        end)
+
         vim.diagnostic.config({
             severity_sort = true,
             virtual_text = {
@@ -169,33 +166,14 @@ return {
             },
             severity = { min = vim.diagnostic.severity.WARN },
         })
-        -- Ensure the servers and tools above are installed
-        --  To check the current status of installed tools and/or manually install
-        --  other tools, you can run
-        --    :Mason
-        --
-        --  You can press `g?` for help in this menu.
-        require("mason").setup()
 
-        -- You can add other tools here that you want Mason to install
-        -- for you, so that they are available from within Neovim.
         local ensure_installed = vim.tbl_keys(servers or {})
-        vim.list_extend(ensure_installed, {
-            "stylua", -- Used to format Lua code
-        })
         require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
 
-        require("mason-lspconfig").setup({
-            handlers = {
-                function(server_name)
-                    local server = servers[server_name] or {}
-                    -- This handles overriding only values explicitly passed
-                    -- by the server configuration above. Useful when disabling
-                    -- certain features of an LSP (for example, turning off formatting for tsserver)
-                    server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-                    require("lspconfig")[server_name].setup(server)
-                end,
-            },
-        })
+        for server, cfg in pairs(servers) do
+            cfg.capabilities = vim.tbl_deep_extend("force", {}, capabilities, cfg.capabilities or {})
+            vim.lsp.config(server, cfg)
+            vim.lsp.enable(server)
+        end
     end,
 }
