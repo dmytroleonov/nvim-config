@@ -16,7 +16,7 @@ vim.keymap.set("n", "<C-d>", "<C-d>zz")
 vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
-vim.keymap.set("n", "<leader>zig", "<cmd>LspRestart<cr>")
+vim.keymap.set("n", "<leader>lsp", "<cmd>LspRestart<cr>")
 
 vim.keymap.set("x", "<leader>p", [["_dP]])
 
@@ -83,3 +83,14 @@ vim.keymap.set("n", "<leader>hl", function()
         vim.g.listchars_visible = true
     end
 end, { desc = "Toggle listchars" })
+
+vim.keymap.set("n", "<leader>ta", function()
+    local nf = vim.opt.nrformats:get()
+    if vim.tbl_contains(nf, "alpha") then
+        vim.opt.nrformats:remove("alpha")
+        print("Alpha increment off")
+    else
+        vim.opt.nrformats:append("alpha")
+        print("Alpha increment on")
+    end
+end, { desc = "Toggle alpha increment" })
