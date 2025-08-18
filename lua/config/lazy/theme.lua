@@ -12,8 +12,8 @@ return {
                     transparency = true,
                 },
                 highlight_groups = {
-                    Pmenu = { bg = "surface" },
-                    NormalFloat = { bg = "surface" },
+                    -- Pmenu = { bg = "surface" },
+                    -- NormalFloat = { bg = "surface" },
                     TelescopeSelectionCaret = { fg = "rose", bg = "rose" },
                 },
             })
