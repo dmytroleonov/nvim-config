@@ -30,7 +30,14 @@ return {
             require("none-ls.formatting.ruff_format"),
         }
 
-        vim.keymap.set("n", "<leader>f", vim.lsp.buf.format)
+        vim.keymap.set("n", "<leader>f", function()
+            vim.lsp.buf.format({
+                async = false,
+                filter = function(c)
+                    return c.name == "null-ls"
+                end,
+            })
+        end)
 
         local augroup = vim.api.nvim_create_augroup("LspFormatting", {})
         null_ls.setup({
