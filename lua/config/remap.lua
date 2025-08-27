@@ -34,8 +34,6 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.keymap.set("n", "<leader>wr", "<cmd>set wrap!<CR>")
 
-vim.keymap.set("i", "<C-s>", vim.lsp.buf.signature_help)
-
 local function copy_path()
     local filepath = vim.fn.expand("%:p") -- Absolute path
     local filename = vim.fn.expand("%:t") -- Filename
