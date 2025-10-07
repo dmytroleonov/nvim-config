@@ -103,6 +103,7 @@ return {
         local servers = {
             ts_ls = {},
             eslint = {},
+            zls = {},
             ruff = {},
             pylsp = {
                 settings = {
