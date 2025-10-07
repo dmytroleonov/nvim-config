@@ -9,7 +9,7 @@ return {
 
         -- Useful status updates for LSP.
         -- NOTE: `opts = {}` is the same as calling `require('fidget').setup({})`
-        { "j-hui/fidget.nvim", opts = {} },
+        { "j-hui/fidget.nvim",       opts = {} },
 
         -- Allows extra capabilities provided by nvim-cmp
         "hrsh7th/cmp-nvim-lsp",
@@ -101,7 +101,12 @@ return {
         capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
         local servers = {
-            ts_ls = {},
+            ts_ls = {
+                on_attach = function(client)
+                    client.server_capabilities.documentFormattingProvider = false
+                    client.server_capabilities.documentRangeFormattingProvider = false
+                end
+            },
             eslint = {},
             zls = {},
             ruff = {},
@@ -144,9 +149,6 @@ return {
                             },
                         },
                         diagnostics = { disable = { "missing-fields" }, globals = { "vim" } },
-                        format = {
-                            enable = false,
-                        },
                     },
                 },
             },
@@ -176,5 +178,9 @@ return {
             vim.lsp.config(server, cfg)
             vim.lsp.enable(server)
         end
+
+        vim.keymap.set("n", "<leader>f", function()
+            vim.lsp.buf.format({ async = false })
+        end)
     end,
 }
