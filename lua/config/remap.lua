@@ -1,7 +1,11 @@
 vim.g.mapleader = " "
 
+vim.keymap.set("n", "<leader>o", "<cmd>%bd!|e#|bd#<cr>")
+
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
+
+vim.keymap.set("n", "gj", [[<cmd>s/\n\s*/<cr>]])
 
 vim.keymap.set("n", ">", ">>")
 vim.keymap.set("n", "<", "<<")
