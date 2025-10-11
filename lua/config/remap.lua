@@ -1,6 +1,7 @@
 vim.g.mapleader = " "
 
 vim.keymap.set("n", "<leader>o", "<cmd>%bd!|e#|bd#<cr>")
+vim.keymap.set("n", "<leader>m", "<cmd>make<cr>")
 
 vim.keymap.set("v", "J", ":m '>+1<CR>gv=gv")
 vim.keymap.set("v", "K", ":m '<-2<CR>gv=gv")
@@ -44,10 +45,10 @@ local function copy_path()
     local modify = vim.fn.fnamemodify
 
     local results = {
-        filepath, -- Absolute path
+        filepath,               -- Absolute path
         modify(filepath, ":."), -- Path relative to CWD
         modify(filepath, ":~"), -- Path relative to HOME
-        filename, -- Filename
+        filename,               -- Filename
         modify(filename, ":r"), -- Filename without extension
         modify(filename, ":e"), -- File extension
     }
