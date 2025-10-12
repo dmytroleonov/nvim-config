@@ -13,6 +13,28 @@ return {
 
         -- Allows extra capabilities provided by nvim-cmp
         "hrsh7th/cmp-nvim-lsp",
+        {
+            "stevearc/conform.nvim",
+            opts = {
+                formatters_by_ft = {
+                    sql = { "sleek" }
+                },
+                formatters = {
+                    sleek = {
+                        command = 'sleek',
+                        args = { "--indent-spaces", "2", "--uppercase", "false", "--trailing-newline", "false" },
+                    }
+                },
+            },
+            keys = {
+                {
+                    "<leader>f",
+                    function()
+                        require("conform").format({ async = true, lsp_fallback = true })
+                    end,
+                },
+            },
+        }
     },
     config = function()
         vim.api.nvim_create_autocmd("LspAttach", {
@@ -178,9 +200,5 @@ return {
             vim.lsp.config(server, cfg)
             vim.lsp.enable(server)
         end
-
-        vim.keymap.set("n", "<leader>f", function()
-            vim.lsp.buf.format({ async = false })
-        end)
     end,
 }
