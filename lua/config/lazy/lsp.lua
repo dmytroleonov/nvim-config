@@ -17,13 +17,19 @@ return {
             "stevearc/conform.nvim",
             opts = {
                 formatters_by_ft = {
-                    sql = { "sleek" }
+                    sql = { "sleek" },
+                    python = { "ruff_format", "ruff_check" },
                 },
                 formatters = {
                     sleek = {
                         command = 'sleek',
                         args = { "--indent-spaces", "2", "--uppercase", "false", "--trailing-newline", "false" },
-                    }
+                    },
+                    ruff_check = {
+                        command = "ruff",
+                        args = { "check", "--fix", "--exit-zero", "--stdin-filename", "$FILENAME", "-" },
+                        stdin = true,
+                    },
                 },
             },
             keys = {
