@@ -1,3 +1,12 @@
+local prettierd_or_biome = function()
+    local biome_files = vim.fs.find({ "biome.json", "biome.jsonc" }, { upward = true, path = vim.fn.expand("%:p:h") })
+    if #biome_files > 0 then
+        return { "biome-check" }
+    else
+        return { "prettierd" }
+    end
+end
+
 return {
     -- Main LSP Configuration
     "neovim/nvim-lspconfig",
@@ -19,6 +28,12 @@ return {
                 formatters_by_ft = {
                     sql = { "sleek" },
                     python = { "ruff_format", "ruff_check" },
+                    typescript = prettierd_or_biome,
+                    typescriptreact = prettierd_or_biome,
+                    javascript = prettierd_or_biome,
+                    javascriptreact = prettierd_or_biome,
+                    json = prettierd_or_biome,
+                    css = prettierd_or_biome,
                 },
                 formatters = {
                     sleek = {
@@ -136,6 +151,7 @@ return {
                 end
             },
             eslint = {},
+            biome = {},
             zls = {},
             ruff = {},
             pylsp = {
@@ -160,7 +176,12 @@ return {
             dockerls = {},
             sqlls = {},
             terraformls = {},
-            jsonls = {},
+            jsonls = {
+                on_attach = function(client)
+                    client.server_capabilities.documentFormattingProvider = false
+                    client.server_capabilities.documentRangeFormattingProvider = false
+                end
+            },
             yamlls = {},
             lua_ls = {
                 settings = {
