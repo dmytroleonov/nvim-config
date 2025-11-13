@@ -153,6 +153,7 @@ return {
             eslint = {},
             biome = {},
             zls = {},
+            clangd = {},
             ruff = {},
             pylsp = {
                 settings = {
