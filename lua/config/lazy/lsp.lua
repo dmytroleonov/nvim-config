@@ -152,6 +152,7 @@ return {
             clangd = {},
             ruff = {},
             taplo = {},
+            bashls = {},
             pylsp = {
                 settings = {
                     pylsp = {
