@@ -151,6 +151,7 @@ return {
             zls = {},
             clangd = {},
             ruff = {},
+            taplo = {},
             pylsp = {
                 settings = {
                     pylsp = {
