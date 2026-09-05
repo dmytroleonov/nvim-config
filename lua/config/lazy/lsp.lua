@@ -1,11 +1,34 @@
-local prettierd_or_biome = function()
-    local biome_files = vim.fs.find({ "biome.json", "biome.jsonc" }, { upward = true, path = vim.fn.expand("%:p:h") })
-    if #biome_files > 0 then
-        return { "biome-check" }
-    else
-        return { "prettierd" }
+-- https://github.com/stevearc/conform.nvim/issues/504#issuecomment-2392701846
+---@param bufnr integer
+---@param ... string
+---@return string
+local function first(bufnr, ...)
+    local conform = require("conform")
+    for i = 1, select("#", ...) do
+        local formatter = select(i, ...)
+        if conform.get_formatter_info(formatter, bufnr).available then
+            return formatter
+        end
+    end
+    return select(1, ...)
+end
+
+local function expandFormatters(formatters)
+    return function(bufnr)
+        local result = {}
+        for i = 1, #formatters do
+            local formatter = formatters[i]
+            if type(formatter) == "table" then
+                result[i] = first(bufnr, unpack(formatter))
+            else
+                result[i] = formatter
+            end
+        end
+        return result
     end
 end
+
+local fmt_by_ft = expandFormatters({ { "oxfmt", "biome-check", "prettierd" }, lsp_format = "fallback" })
 
 return {
     -- Main LSP Configuration
@@ -28,12 +51,13 @@ return {
                 formatters_by_ft = {
                     sql = { "sleek" },
                     python = { "ruff_format", "ruff_check" },
-                    typescript = prettierd_or_biome,
-                    typescriptreact = prettierd_or_biome,
-                    javascript = prettierd_or_biome,
-                    javascriptreact = prettierd_or_biome,
-                    json = prettierd_or_biome,
-                    css = prettierd_or_biome,
+                    typescript = fmt_by_ft,
+                    typescriptreact = fmt_by_ft,
+                    javascript = fmt_by_ft,
+                    javascriptreact = fmt_by_ft,
+                    json = fmt_by_ft,
+                    css = fmt_by_ft,
+                    jsonc = fmt_by_ft
                 },
                 formatters = {
                     sleek = {
