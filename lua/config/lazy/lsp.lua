@@ -171,6 +171,7 @@ return {
                 end
             },
             eslint = {},
+            oxlint  ={},
             biome = {},
             zls = {},
             clangd = {},
