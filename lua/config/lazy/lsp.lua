@@ -164,21 +164,21 @@ return {
         capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
         local servers = {
-            ts_ls = {
+            ts_ls       = {
                 on_attach = function(client)
                     client.server_capabilities.documentFormattingProvider = false
                     client.server_capabilities.documentRangeFormattingProvider = false
                 end
             },
-            eslint = {},
-            oxlint  ={},
-            biome = {},
-            zls = {},
-            clangd = {},
-            ruff = {},
-            taplo = {},
-            bashls = {},
-            pylsp = {
+            eslint      = {},
+            oxlint      = {},
+            biome       = {},
+            zls         = {},
+            clangd      = {},
+            ruff        = {},
+            taplo       = {},
+            bashls      = {},
+            pylsp       = {
                 settings = {
                     pylsp = {
                         plugins = {
@@ -194,20 +194,20 @@ return {
                     },
                 },
             },
-            html = { filetypes = { "html", "twig", "hbs" } },
-            cssls = {},
+            html        = { filetypes = { "html", "twig", "hbs" } },
+            cssls       = {},
             tailwindcss = {},
-            dockerls = {},
-            sqlls = {},
+            dockerls    = {},
+            sqlls       = {},
             terraformls = {},
-            jsonls = {
+            jsonls      = {
                 on_attach = function(client)
                     client.server_capabilities.documentFormattingProvider = false
                     client.server_capabilities.documentRangeFormattingProvider = false
                 end
             },
-            yamlls = {},
-            lua_ls = {
+            yamlls      = {},
+            lua_ls      = {
                 settings = {
                     Lua = {
                         completion = {
@@ -225,7 +225,7 @@ return {
                     },
                 },
             },
-            prismals = {},
+            prismals    = {},
         }
 
         vim.keymap.set("n", "gl", function()
