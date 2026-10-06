@@ -57,7 +57,8 @@ return {
                     javascriptreact = fmt_by_ft,
                     json = fmt_by_ft,
                     css = fmt_by_ft,
-                    jsonc = fmt_by_ft
+                    jsonc = fmt_by_ft,
+                    yaml = fmt_by_ft,
                 },
                 formatters = {
                     sleek = {
